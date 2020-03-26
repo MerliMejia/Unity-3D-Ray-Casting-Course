@@ -6,10 +6,13 @@ using UnityEngine;
 public abstract class Gun : MonoBehaviour
 {
     abstract public float aimingThickness { get; }
+    float maxdistance = 0;
+
     Ray aimingRay;
     Ray cameraToMouseRay;
 
     Vector3 mousePosition;
+    Vector3 mousedirection;
 
     LineRenderer lineRenderer;
 
@@ -26,14 +29,14 @@ public abstract class Gun : MonoBehaviour
 
     void aimingRaycasting()
     {
-        Vector3 mousedirection = -(transform.position - new Vector3(mousePosition.x, mousePosition.y, 0)).normalized;
+        mousedirection = -(transform.position - new Vector3(mousePosition.x, mousePosition.y, 0)).normalized;
         aimingRay = new Ray(transform.position, mousedirection);
         float mouseDistance = Vector3.Distance(transform.position, mousePosition);
 
-        float maxdistance = 0;
+        
         RaycastHit hit;
 
-        if (Physics.Raycast(aimingRay, out hit, mouseDistance, 1 << 9))
+        if (Physics.SphereCast(aimingRay, aimingThickness, out hit, mouseDistance, 1 << 9))
         {
             maxdistance = hit.distance;
         }
@@ -41,12 +44,13 @@ public abstract class Gun : MonoBehaviour
         {
             maxdistance = mouseDistance;
         }
+         
 
         Debug.DrawRay(aimingRay.origin, aimingRay.direction * maxdistance, Color.red);
 
         lineRenderer.SetPosition(0, aimingRay.origin);
-        lineRenderer.SetPosition(1, aimingRay.GetPoint(maxdistance));
-        lineRenderer.widthMultiplier = aimingThickness;
+        lineRenderer.SetPosition(1, aimingRay.GetPoint(maxdistance + aimingThickness));
+        lineRenderer.widthMultiplier = aimingThickness * 2;
     }
 
     void cameraToMouseRaycasting()
@@ -56,5 +60,11 @@ public abstract class Gun : MonoBehaviour
         float distance = Vector3.Distance(Camera.main.transform.position, playerPosition);
         mousePosition = cameraToMouseRay.GetPoint(distance);
         Debug.DrawRay(cameraToMouseRay.origin, cameraToMouseRay.direction * distance, Color.blue);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + (mousedirection * maxdistance), aimingThickness);
     }
 }
