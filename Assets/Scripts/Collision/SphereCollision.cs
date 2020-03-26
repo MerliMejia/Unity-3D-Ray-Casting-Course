@@ -34,7 +34,8 @@ public class SphereCollision : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.magenta);
 
         /*
-         Physics.Raycast return true if something collides with the ray.
+         Physics.SphereCast return true if something collides with the ray.
+         Think at this as a ray which you can specify how thick you want it to be
          If we pass the maxDistance as parameter it will only detects sollisions in between that distance
          Passing the layermask the ray will detects only objects in the layer number 8
          */
