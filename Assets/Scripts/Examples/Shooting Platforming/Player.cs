@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Gun))]
 public class Player : MonoBehaviour
 {
 
@@ -12,12 +13,13 @@ public class Player : MonoBehaviour
     Rigidbody rg;
 
     private Ray downRay;
-    private int jumpCounter = 0;
+    public int jumpCounter = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         rg = this.GetComponent<Rigidbody>();
+        gun = this.GetComponent<Gun>();
     }
 
     // Update is called once per frame
@@ -32,7 +34,7 @@ public class Player : MonoBehaviour
         downRay = new Ray(this.transform.position, Vector3.down);
         RaycastHit hit;
         GameObject playerBody = transform.GetChild(0).gameObject;
-        float distance = playerBody.transform.localScale.y / 2;
+        float distance = (playerBody.transform.localScale.y / 2) + (playerBody.transform.localScale.y * 0.01f);
 
         if(Physics.Raycast(downRay, out hit, distance, 1 << 9))
         {
