@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 122601679}
   - component: {fileID: 122601678}
   - component: {fileID: 122601677}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122601676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.59, y: 0.03, z: 0}
+  m_LocalPosition: {x: 4.59, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -410,10 +410,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 725433721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afecdb236a493c942ba0877276c91c5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 094d386d02ebd2c40937d0a448ebe4b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 11.08
+  maxDistance: 11
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
